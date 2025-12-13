@@ -15,8 +15,8 @@
   <video id="videoContainer"></video>
   <div id="container" ref="container"></div>
   <div class="operate-box">
-    <el-button type="warning" @click="onReset">场景重置</el-button>
-    <el-button type="warning" @click="onChangeTime">{{ timeText }}</el-button>
+    <el-button type="warning" @click="onReset">返回主界面</el-button>
+    <!-- <el-button type="warning" @click="onChangeTime">{{ timeText }}</el-button> -->
   </div>
 </template>
 <script setup>
@@ -123,7 +123,7 @@ const init = () => {
   // 加载实验楼
   loadLaboratoryBuild()
   // 加载广告牌
-  loadBillBoard()
+  // loadBillBoard()
   // 加载人
   loadPeople()
   // 加载路灯
@@ -133,9 +133,9 @@ const init = () => {
   // 加载水池
   loadSwimmingPool()
   // 办公楼鼠标移动效果
-  officeMouseMove()
+  // officeMouseMove()
   // 办公楼点击
-  officeFloorClick()
+  // officeFloorClick()
 }
 const onChangeTime = () => {
   const ambientLight = viewer.scene.getObjectByName('AmbientLight')
@@ -837,7 +837,7 @@ const onReset = () => {
   isSplit = false
   lastIndex = null
   selectedFloorName = ''
-  officeMouseMove()
+  // officeMouseMove()
 }
 </script>
 <style lang="less" scoped>
