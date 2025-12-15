@@ -336,10 +336,14 @@ const loadOfficeBuild = () => {
       `<span class="label">${model.object.name}</span>`,
       () => {
         console.log('点击了办公大厅');
-                gsap.to(viewer.camera.position, {
-          x: - 17,
-          y: 10,
-          z: 52,  
+        console.log('点击了办公大厅 ', viewer.camera.position);
+
+          gsap.to(viewer.camera.position, {
+            x: 25,
+            y: 15,
+            z: 25,  
+            duration: 2,
+            ease: 'Bounce.inOut'
         })
       }
        
@@ -640,48 +644,48 @@ const loadLaboratoryBuild = () => {
     laboratoryBuild = model.object.clone()
     const bbox = model.getBox()
 
-    const labLabel = labelIns.addCss2dLabel(
-      {
-        x: bbox.max.x,
-        y: bbox.max.y,
-        z: bbox.max.z
-      },
-      `<span class="label">${model.object.name}</span>`,
-      () => {
-        console.log('点击了实验楼');
-        // event.stopPropagation();
-        // focusOnBuilding(-17, 5, 5, -17, 0, 5); // 调整相机视角到实验楼
-        // console.log('点击了实验楼 1');
-        gsap.to(viewer.camera.position, {
-          x: - 17,
-          y: 10,
-          z: 52,  
-        })
-      }
-    )
+    // const labLabel = labelIns.addCss2dLabel(
+    //   {
+    //     x: bbox.max.x,
+    //     y: bbox.max.y,
+    //     z: bbox.max.z
+    //   },
+    //   `<span class="label">${model.object.name}</span>`,
+    //   () => {
+    //     console.log('点击了实验楼');
+    //     console.log('点击了实验楼 ', viewer.camera.position);
+    //     gsap.to(viewer.camera.position, {
+    //       x: -3.,
+    //       y: 13,
+    //       z: 36,
+    //       duration: 2,
+    //       ease: 'Bounce.inOut'
+    //     })
+    //   }
+    // )
 
-    labLabel.element.addEventListener('click', () => {
-      console.log('点击了实验楼 1');
-      // event.stopPropagation();
-      // focusOnBuilding(-17, 5, 5, -17, 0, 5); // 调整相机视角到实验楼
-      console.log('点击了实验楼 2');
-      gsap.to(viewer.camera.position, {
-        x: - 17,
-        y: 10,
-        z: 52,
-        duration: 2,
-        ease: 'Bounce.inOut'
-      })
-    })
+    // labLabel.element.addEventListener('click', () => {
+    //   console.log('点击了实验楼 1');
+    //   // event.stopPropagation();
+    //   // focusOnBuilding(-17, 5, 5, -17, 0, 5); // 调整相机视角到实验楼
+    //   console.log('点击了实验楼 2');
+    //   gsap.to(viewer.camera.position, {
+    //     x: 9,
+    //     y: 2.6,
+    //     z: 33,
+    //     duration: 2,
+    //     ease: 'Bounce.inOut'
+    //   })
+    // })
 
-    // 添加标签动画
-    gsap.to(labLabel.position, {
-      y: bbox.max.y + 2,
-      repeat: -1, // 循环播放
-      yoyo: true, // 循环播放
-      duration: 2, // 播放时间
-      ease: 'Bounce.inOut'
-    })
+    // // 添加标签动画
+    // gsap.to(labLabel.position, {
+    //   y: bbox.max.y + 2,
+    //   repeat: -1, // 循环播放
+    //   yoyo: true, // 循环播放
+    //   duration: 2, // 播放时间
+    //   ease: 'Bounce.inOut'
+    // })
   })
 }
 /**
@@ -727,10 +731,13 @@ const loadCar = () => {
       `<span class="label">${model.object.name}</span>`,
       () => {
         console.log('点击了快递车');
-                gsap.to(viewer.camera.position, {
-          x: - 17,
-          y: 10,
-          z: 52,  
+        console.log('点击了快递车 ', viewer.camera.position);
+          gsap.to(viewer.camera.position, {
+            x: 13,
+            y: 2,
+            z: 26,
+            duration: 2,
+            ease: 'Bounce.inOut'
         })
         // event.stopPropagation();
         // focusOnBuilding(-17, 5, 5, -17, 0, 5); // 调整相机视角到实验楼
