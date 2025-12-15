@@ -108,7 +108,7 @@ const init = () => {
 
   labelIns = new Labels(viewer)
 
-  viewer.addAxis()
+  //viewer.addAxis()
 
   // 添加状态检测
   viewer.addStats()
@@ -251,11 +251,11 @@ const initFence = () => {
           })
         }
       })
-      timeen = {
-        fun: moveOnCurve,
-        content: car
-      }
-      viewer.addAnimate(timeen)
+      // timeen = {
+      //   fun: moveOnCurve,
+      //   content: car
+      // }
+      // viewer.addAnimate(timeen)
       cityv1 = model.object.clone()
     },
     (pgs) => {
@@ -333,8 +333,34 @@ const loadOfficeBuild = () => {
         y: buildBox.max.y,
         z: buildBox.max.z
       },
-      `<span class="label">${model.object.name}</span>`
+      `<span class="label">${model.object.name}</span>`,
+      () => {
+        console.log('点击了办公大厅');
+                gsap.to(viewer.camera.position, {
+          x: - 17,
+          y: 10,
+          z: 52,  
+        })
+      }
+       
     )
+    console.log('----officeBuild----', officeBuild)
+
+// 获取标签的DOM元素
+const labelElement = officeLabel.element;
+
+// 添加点击事件
+labelElement.addEventListener('click', (event) => {
+  event.stopPropagation(); // 阻止事件冒泡
+  console.log('标签被点击了:', model.object.name);
+  // 这里可以执行你的点击逻辑
+  
+  // 例如：高亮建筑
+  officeBuild.material.color.setHex(0xff0000);
+  
+  // 或者显示信息面板
+  // showBuildingInfo(model.object);
+});
     // 添加标签动画
     gsap.to(labelIns.label.position, {
       y: buildBox.max.y + 2,
@@ -614,17 +640,42 @@ const loadLaboratoryBuild = () => {
     laboratoryBuild = model.object.clone()
     const bbox = model.getBox()
 
-    labelIns.addCss2dLabel(
+    const labLabel = labelIns.addCss2dLabel(
       {
         x: bbox.max.x,
         y: bbox.max.y,
         z: bbox.max.z
       },
-      `<span class="label">${model.object.name}</span>`
+      `<span class="label">${model.object.name}</span>`,
+      () => {
+        console.log('点击了实验楼');
+        // event.stopPropagation();
+        // focusOnBuilding(-17, 5, 5, -17, 0, 5); // 调整相机视角到实验楼
+        // console.log('点击了实验楼 1');
+        gsap.to(viewer.camera.position, {
+          x: - 17,
+          y: 10,
+          z: 52,  
+        })
+      }
     )
 
+    labLabel.element.addEventListener('click', () => {
+      console.log('点击了实验楼 1');
+      // event.stopPropagation();
+      // focusOnBuilding(-17, 5, 5, -17, 0, 5); // 调整相机视角到实验楼
+      console.log('点击了实验楼 2');
+      gsap.to(viewer.camera.position, {
+        x: - 17,
+        y: 10,
+        z: 52,
+        duration: 2,
+        ease: 'Bounce.inOut'
+      })
+    })
+
     // 添加标签动画
-    gsap.to(labelIns.label.position, {
+    gsap.to(labLabel.position, {
       y: bbox.max.y + 2,
       repeat: -1, // 循环播放
       yoyo: true, // 循环播放
@@ -673,7 +724,23 @@ const loadCar = () => {
         y: boxx.max.y + 2,
         z: boxx.max.z
       },
-      `<span class="label">${model.object.name}</span>`
+      `<span class="label">${model.object.name}</span>`,
+      () => {
+        console.log('点击了快递车');
+                gsap.to(viewer.camera.position, {
+          x: - 17,
+          y: 10,
+          z: 52,  
+        })
+        // event.stopPropagation();
+        // focusOnBuilding(-17, 5, 5, -17, 0, 5); // 调整相机视角到实验楼
+        // console.log('点击了快递车 1');
+        // gsap.to(viewer.camera.position, {
+        //   x: - 17,
+        //   y: 10,
+        //   z: 52,  
+        // })
+      }
     )
   })
 }
@@ -720,73 +787,73 @@ const loadSwimmingPool = () => {
 
 /**
  * 物体沿线移动方法
- */
-const moveOnCurve = (model) => {
-  if (curve && car) {
-    if (progress <= 1 - velocity) {
-      let carObj = model.object
-      let boxx = model.getBox()
-      carLabel.position.set(boxx.max.x, boxx.max.y + 2, boxx.max.z)
-      if (
-        carObj.position.z.toFixed(2) >= 28.0 &&
-        carObj.position.z.toFixed(2) <= 28.1
-      ) {
-        if (isopen.value) {
-          gsap.to(Mesh26.scale, {
-            x: Mesh26.scale.x * 8,
-            duration: 5,
-            ease: 'power1.inOut',
-            onComplete: () => {
-              isopen.value = false
-            }
-          })
-        } else {
-          gsap.to(Mesh26.scale, {
-            x: Mesh26.scale.x / 8,
-            duration: 5,
-            ease: 'power1.inOut',
-            onComplete: () => {
-              isopen.value = true
-              viewer.addAnimate(timeen)
-            },
-            onStart: () => {
-              viewer.removeAnimate(timeen)
-            }
-          })
-        }
-      }
+//  */
+// const moveOnCurve = (model) => {
+//   if (curve && car) {
+//     if (progress <= 1 - velocity) {
+//       let carObj = model.object
+//       let boxx = model.getBox()
+//       carLabel.position.set(boxx.max.x, boxx.max.y + 2, boxx.max.z)
+//       if (
+//         carObj.position.z.toFixed(2) >= 28.0 &&
+//         carObj.position.z.toFixed(2) <= 28.1
+//       ) {
+//         if (isopen.value) {
+//           gsap.to(Mesh26.scale, {
+//             x: Mesh26.scale.x * 8,
+//             duration: 5,
+//             ease: 'power1.inOut',
+//             onComplete: () => {
+//               isopen.value = false
+//             }
+//           })
+//         } else {
+//           gsap.to(Mesh26.scale, {
+//             x: Mesh26.scale.x / 8,
+//             duration: 5,
+//             ease: 'power1.inOut',
+//             onComplete: () => {
+//               isopen.value = true
+//               viewer.addAnimate(timeen)
+//             },
+//             onStart: () => {
+//               viewer.removeAnimate(timeen)
+//             }
+//           })
+//         }
+//       }
 
-      const point = curve.getPointAt(progress) // 获取样条曲线指定点坐标
-      const pointBox = curve.getPointAt(progress + velocity) // 获取样条曲线指定点坐标
+//       const point = curve.getPointAt(progress) // 获取样条曲线指定点坐标
+//       const pointBox = curve.getPointAt(progress + velocity) // 获取样条曲线指定点坐标
 
-      if (point && pointBox) {
-        carObj.position.set(point.x, point.y, point.z)
-        //因为这个模型加载进来默认面部是正对Z轴负方向的，所以直接lookAt会导致出现倒着跑的现象，这里用重新设置朝向的方法来解决。
-        carObj.lookAt(pointBox.x, pointBox.y, pointBox.z)
-        if (isDriver.value) {
-          viewer.camera.position.set(point.x, point.y + 2, point.z)
-          viewer.camera.lookAt(pointBox.x, pointBox.y + 2, pointBox.z)
-          // viewer.controls.position0.set(point.x, point.y + 2, point.z) //非必要，场景有控件时才加上
-          //       viewer.controls.target.set(pointBox.x, pointBox.y + 2, pointBox.z) //非必要，场景有控件时才加上
-        }
+//       if (point && pointBox) {
+//         carObj.position.set(point.x, point.y, point.z)
+//         //因为这个模型加载进来默认面部是正对Z轴负方向的，所以直接lookAt会导致出现倒着跑的现象，这里用重新设置朝向的方法来解决。
+//         carObj.lookAt(pointBox.x, pointBox.y, pointBox.z)
+//         if (isDriver.value) {
+//           viewer.camera.position.set(point.x, point.y + 2, point.z)
+//           viewer.camera.lookAt(pointBox.x, pointBox.y + 2, pointBox.z)
+//           // viewer.controls.position0.set(point.x, point.y + 2, point.z) //非必要，场景有控件时才加上
+//           //       viewer.controls.target.set(pointBox.x, pointBox.y + 2, pointBox.z) //非必要，场景有控件时才加上
+//         }
 
-        const offsetAngle = 22 // 目标移动时的朝向偏移
-        const mtx = new THREE.Matrix4() // 创建一个4维矩阵
-        mtx.lookAt(carObj.position, pointBox, carObj.up) // 设置朝向
-        mtx.multiply(
-          new THREE.Matrix4().makeRotationFromEuler(
-            new THREE.Euler(0, offsetAngle, 0)
-          )
-        )
-        const toRot = new THREE.Quaternion().setFromRotationMatrix(mtx) //计算出需要进行旋转的四元数值
-        carObj.quaternion.slerp(toRot, 0.2)
-      }
-      progress += velocity
-    } else {
-      progress = 0
-    }
-  }
-}
+//         const offsetAngle = 22 // 目标移动时的朝向偏移
+//         const mtx = new THREE.Matrix4() // 创建一个4维矩阵
+//         mtx.lookAt(carObj.position, pointBox, carObj.up) // 设置朝向
+//         mtx.multiply(
+//           new THREE.Matrix4().makeRotationFromEuler(
+//             new THREE.Euler(0, offsetAngle, 0)
+//           )
+//         )
+//         const toRot = new THREE.Quaternion().setFromRotationMatrix(mtx) //计算出需要进行旋转的四元数值
+//         carObj.quaternion.slerp(toRot, 0.2)
+//       }
+//       progress += velocity
+//     } else {
+//       progress = 0
+//     }
+//   }
+// }
 const makeCurve = () => {
   // 从一系列的点创建一条平滑的三维样条曲线
   curve = new THREE.CatmullRomCurve3([
